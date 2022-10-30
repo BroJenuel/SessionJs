@@ -1,6 +1,4 @@
-<script lang="ts" setup>
-import {} from "./../../dist/index.js";
-</script>
+<script lang="ts" setup></script>
 <template>
     <button>Click</button>
 </template>
