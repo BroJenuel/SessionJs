@@ -1,21 +1,36 @@
 var STORAGE: any = localStorage;
 var SessionStorage: Storage = sessionStorage;
-var VueSession = {
-    key: "session-key",
-    flash_key: "session-flash-key",
+var StorageContainer = {
+    key: "storage-container-key",
+    flash_key: "storage-flash-container-key",
     setAll: function (all: any) {
-        STORAGE.setItem(VueSession.key, JSON.stringify(all));
+        STORAGE.setItem(StorageContainer.key, JSON.stringify(all));
     },
 };
 
-export const session = {
+type SessionType = {
+    flash: any;
+    getAll: Function;
+    set: Function;
+    get: Function;
+    start: Function;
+    renew: Function;
+    exists: Function;
+    has: Function;
+    remove: Function;
+    clear: Function;
+    destroy: Function;
+    id: Function;
+};
+
+export const Storage: SessionType = {
     flash: {
         parent: function () {
             return SessionStorage;
         },
         get: function (key: string) {
             var all = this.parent().getAll();
-            var all_flash = all[VueSession.flash_key] || {};
+            var all_flash = all[StorageContainer.flash_key] || {};
 
             var flash_value = all_flash[key];
 
@@ -25,25 +40,25 @@ export const session = {
         },
         set: function (key: string, value: any) {
             var all = this.parent().getAll();
-            var all_flash = all[VueSession.flash_key] || {};
+            var all_flash = all[StorageContainer.flash_key] || {};
 
             all_flash[key] = value;
-            all[VueSession.flash_key] = all_flash;
+            all[StorageContainer.flash_key] = all_flash;
 
-            VueSession.setAll(all);
+            StorageContainer.setAll(all);
         },
         remove: function (key: string) {
             var all = this.parent().getAll();
-            var all_flash = all[VueSession.flash_key] || {};
+            var all_flash = all[StorageContainer.flash_key] || {};
 
             delete all_flash[key];
 
-            all[VueSession.flash_key] = all_flash;
-            VueSession.setAll(all);
+            all[StorageContainer.flash_key] = all_flash;
+            StorageContainer.setAll(all);
         },
     },
     getAll: function () {
-        var all = JSON.parse(STORAGE.getItem(VueSession.key));
+        var all = JSON.parse(STORAGE.getItem(StorageContainer.key));
         return all || {};
     },
     set: function (key: string, value: any) {
@@ -57,7 +72,7 @@ export const session = {
 
         all[key] = value;
 
-        VueSession.setAll(all);
+        StorageContainer.setAll(all);
     },
     get: function (key: string) {
         var all = this.getAll();
@@ -67,12 +82,12 @@ export const session = {
         var all = this.getAll();
         all["session-id"] = "sess:" + Date.now();
 
-        VueSession.setAll(all);
+        StorageContainer.setAll(all);
     },
     renew: function (sessionId: string) {
         var all = this.getAll();
         all["session-id"] = "sess:" + sessionId;
-        VueSession.setAll(all);
+        StorageContainer.setAll(all);
     },
     exists: function () {
         var all = this.getAll();
@@ -86,17 +101,19 @@ export const session = {
         var all = this.getAll();
         delete all[key];
 
-        VueSession.setAll(all);
+        StorageContainer.setAll(all);
     },
     clear: function () {
         var all = this.getAll();
 
-        VueSession.setAll({ "session-id": all["session-id"] });
+        StorageContainer.setAll({ "session-id": all["session-id"] });
     },
     destroy: function () {
-        VueSession.setAll({});
+        StorageContainer.setAll({});
     },
     id: function () {
         return this.get("session-id");
     },
 };
+
+export default Storage;
