@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "storage-container-js": "^0.0.6",
+    "storage-container-js": "^0.0.7",
     "vue": "^3.2.41"
   },
   "devDependencies": {
