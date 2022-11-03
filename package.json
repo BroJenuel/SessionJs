@@ -1,16 +1,17 @@
 {
     "name": "storage-container-js",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "description": "This is a package where you can use localStorage or sessionStorage works like a state.",
-    "main": "index.js",
-    "browser": "index.js",
-    "module": "index.js",
-    "types": "index.d.ts",
+    "main": "./dist/index.js",
+    "browser": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "scripts": {
         "build": "tsc"
     },
     "files": [
-        "./dist/**"
+        "./dist/**",
+        "src/**"
     ],
     "keywords": [
         "session",
