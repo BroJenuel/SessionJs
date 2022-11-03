@@ -415,10 +415,10 @@ sourcemap-codec@^1.4.8:
   resolved "https://registry.yarnpkg.com/sourcemap-codec/-/sourcemap-codec-1.4.8.tgz#ea804bd94857402e6992d05a38ef1ae35a9ab4c4"
   integrity sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==
 
-storage-container-js@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/storage-container-js/-/storage-container-js-0.1.1.tgz#ddd935b1aa7b6e312c205333a4ea4e2a9637b00a"
-  integrity sha512-vlyKrahSheSr9Oa7TfsZrplMyb+OsML/OrSvfuA7pe2XAwsffyxkL5+pQhj1U1jORwozT3T8vjoK1RIQOSvJbA==
+storage-container-js@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/storage-container-js/-/storage-container-js-0.1.3.tgz#ad2faa8ea923a1aa52c20fd64e81ba2af1cb7aba"
+  integrity sha512-o9qgjN8/cMg7mOg88ndQsCdYdp3CUcnqFlb1PtqjMpMSruiKsbsnTHljXiXIGz9cXoED3oFwGU0sX9cqz1bnNw==
 
 supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
