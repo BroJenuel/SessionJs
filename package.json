@@ -1,6 +1,6 @@
 {
     "name": "storage-container-js",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "This is a package where you can use localStorage or sessionStorage works like a state.",
     "main": "index.js",
     "browser": "index.js",
@@ -10,6 +10,7 @@
         "build": "tsc"
     },
     "files": [
+        "src",
         "index.js",
         "index.d.ts"
     ],
