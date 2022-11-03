@@ -8,7 +8,7 @@ var StorageContainer = {
     },
 };
 
-type SessionType = {
+export type SessionType = {
     flash: any;
     getAll: Function;
     set: Function;
