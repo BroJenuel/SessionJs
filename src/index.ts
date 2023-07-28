@@ -1,46 +1,35 @@
-var STORAGE: any = localStorage;
-var SessionStorage: Storage = sessionStorage;
-var StorageContainer = {
+import { snapStorageType } from "./types";
+
+const STORAGE: Storage = localStorage;
+const SessionStorage: Storage = sessionStorage;
+const StorageContainer = {
     key: "storage-container-key",
     flash_key: "storage-flash-container-key",
-    setAll: function (all: any) {
+    setAll: function(all: any) {
         STORAGE.setItem(StorageContainer.key, JSON.stringify(all));
-    },
+    }
 };
 
-export type SessionType = {
-    flash: any;
-    getAll: Function;
-    set: Function;
-    get: Function;
-    start: Function;
-    renew: Function;
-    exists: Function;
-    has: Function;
-    remove: Function;
-    clear: Function;
-    destroy: Function;
-    id: Function;
-};
 
-export const Storage: SessionType = {
+
+export default {
     flash: {
         parent: function () {
             return SessionStorage;
         },
         get: function (key: string) {
-            var all = this.parent().getAll();
-            var all_flash = all[StorageContainer.flash_key] || {};
+            const all = this.parent().getAll();
+            const all_flash = all[StorageContainer.flash_key] || {};
 
-            var flash_value = all_flash[key];
+            const flash_value = all_flash[key];
 
             this.remove(key);
 
             return flash_value;
         },
         set: function (key: string, value: any) {
-            var all = this.parent().getAll();
-            var all_flash = all[StorageContainer.flash_key] || {};
+            const all = this.parent().getAll();
+            const all_flash = all[StorageContainer.flash_key] || {};
 
             all_flash[key] = value;
             all[StorageContainer.flash_key] = all_flash;
@@ -48,8 +37,8 @@ export const Storage: SessionType = {
             StorageContainer.setAll(all);
         },
         remove: function (key: string) {
-            var all = this.parent().getAll();
-            var all_flash = all[StorageContainer.flash_key] || {};
+            const all = this.parent().getAll();
+            const all_flash = all[StorageContainer.flash_key] || {};
 
             delete all_flash[key];
 
@@ -58,53 +47,63 @@ export const Storage: SessionType = {
         },
     },
     getAll: function () {
-        var all = JSON.parse(STORAGE.getItem(StorageContainer.key));
-        return all || {};
+        const item = STORAGE.getItem(StorageContainer.key);
+        return item ? JSON.parse(item) : {};
     },
     set: function (key: string, value: any) {
-        if (key == "session-id") return false;
-        var all = this.getAll();
+        try {
+            if (key == "session-id") return false;
+            let all = this.getAll();
 
-        if (!("session-id" in all)) {
-            this.start();
-            all = this.getAll();
+            if (!("session-id" in all)) {
+                this.start();
+                all = this.getAll();
+            }
+
+            all[key] = value;
+
+            StorageContainer.setAll(all);
+            return true;
+        } catch (e) {
+            return false;
         }
-
-        all[key] = value;
-
-        StorageContainer.setAll(all);
     },
     get: function (key: string) {
-        var all = this.getAll();
+        const all = this.getAll();
         return all[key];
     },
     start: function () {
-        var all = this.getAll();
+        const all = this.getAll();
         all["session-id"] = "sess:" + Date.now();
 
         StorageContainer.setAll(all);
     },
     renew: function (sessionId: string) {
-        var all = this.getAll();
+        const all = this.getAll();
         all["session-id"] = "sess:" + sessionId;
         StorageContainer.setAll(all);
     },
     exists: function () {
-        var all = this.getAll();
+        const all = this.getAll();
         return "session-id" in all;
     },
     has: function (key: string) {
-        var all = this.getAll();
+        const all = this.getAll();
         return key in all;
     },
     remove: function (key: string) {
-        var all = this.getAll();
-        delete all[key];
+        try {
+            const all = this.getAll();
+            delete all[key];
 
-        StorageContainer.setAll(all);
+            StorageContainer.setAll(all);
+            return true;
+        } catch (e) {
+            return false;
+        }
     },
     clear: function () {
-        var all = this.getAll();
+        const all = this.getAll();
 
         StorageContainer.setAll({ "session-id": all["session-id"] });
     },
@@ -114,6 +113,4 @@ export const Storage: SessionType = {
     id: function () {
         return this.get("session-id");
     },
-};
-
-export default Storage;
+} as snapStorageType;
