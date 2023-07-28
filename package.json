@@ -1,11 +1,12 @@
 {
     "name": "storage-container-js",
-    "version": "0.1.5",
+    "version": "0.2.0",
     "description": "This is a package where you can use localStorage or sessionStorage works like a state.",
     "main": "./dist/index.js",
     "browser": "./dist/index.js",
     "module": "./dist/index.js",
     "types": "index.d.ts",
+    "repository": "https://github.com/BroJenuel/session-storage-js",
     "scripts": {
         "build": "tsc"
     },
@@ -22,6 +23,6 @@
     "author": "BroJenuel",
     "license": "ISC",
     "devDependencies": {
-        "typescript": "^4.8.4"
+        "typescript": "^5.1.6"
     }
 }
