@@ -1,14 +1,15 @@
 {
     "name": "snap-storage",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "description": "This is a package where you can use localStorage or sessionStorage works like a state.",
     "main": "./dist/index.js",
     "browser": "./dist/index.js",
     "module": "./dist/index.js",
-    "types": "index.d.ts",
+    "types": "./dist/index.d.ts",
     "repository": "https://github.com/BroJenuel/snap-storage",
     "scripts": {
-        "build": "tsc"
+        "build": "tsc",
+        "test": "cd vue-test && yarn add snap-storage && yarn dev"
     },
     "files": [
         "./dist/**",
