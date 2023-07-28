@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "snap-storage": "^0.2.5",
     "storage-container-js": "^0.1.3",
     "vue": "^3.2.41"
   },

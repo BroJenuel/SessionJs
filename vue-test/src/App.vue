@@ -1,8 +1,13 @@
 <script lang="ts" setup>
-import { session } from "storage-container-js";
+import SnapSession from "snap-storage"
 
-session.set('testing=lang', 'here you go!!');
+function setOption() {
+    const isSet = SnapSession.set('test', {test: "value"});
+    console.log(isSet)
+    if (isSet)
+    console.log(SnapSession.get('test'));
+}
 </script>
 <template>
-    <button>Click</button>
+    <button @click="setOption">Click</button>
 </template>
